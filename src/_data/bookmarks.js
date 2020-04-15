@@ -1,3 +1,5 @@
+
+require('dotenv').config();
 var faunadb = require('faunadb'),
     q = faunadb.query;
 
@@ -26,6 +28,7 @@ function getBookmarks() {
 }
 
 function mapBookmarks(data) {
+    console.log(data)
     return data.map(bookmark => {
         const dateTime = new Date(bookmark.ts / 1000);
 

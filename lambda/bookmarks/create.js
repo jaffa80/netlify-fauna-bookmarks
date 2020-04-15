@@ -1,5 +1,6 @@
 const rp = require('request-promise');
 const cheerio = require('cheerio');
+require('dotenv').config();
 var faunadb = require('faunadb'),
     q = faunadb.query;
 
