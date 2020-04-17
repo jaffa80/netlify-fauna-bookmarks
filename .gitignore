@@ -1,6 +1,7 @@
 # Local Netlify folder
 .netlify
 .env
+.faunarc
 *.env
 node_modules
 functions

@@ -1,0 +1,90 @@
+# user
+type User @collection(name: "users") {
+  authId: String!
+  auth_token: String!
+  auth_refresh: String!
+}
+
+# route
+type Route @collection(name: "routes") {
+  name: String!
+  description: String!
+  stravaUrl: String!
+  polyline: String!
+  multiSegment:Boolean!
+  maxTimeBetweenSegments: Int!
+  routeStatus:String!
+  routeAdmin: User!
+  routeApprover: User!
+  segments: [Segment!]
+  eventKOM: Int!
+}
+
+#segment (one or more segments)
+type Segment @embedded {
+  sequence: Int!
+  segmentName: String!
+  segmentId: String!
+  polyline: String!
+  routeURL: String!
+}
+
+type EventType @collection(name: "eventTypes") {
+  eventType: String!
+  description: String!
+  graded: Boolean!
+}
+
+type Event @collection(name: "events") {
+  routeId: Route!
+  eventType: EventType!
+  startDate: Date!
+  endDate: Date!
+  timeWindows: [TimeWindow]
+  entryWindow: Int!
+  entryGap: Int!
+  sponsor: Sponsor!
+  handicap: Boolean!
+  paid: Boolean!
+  amount: Money!
+  eventKOM: Int!
+}
+
+type TimeWindow @embedded {
+  start: Time!
+  end: Time!
+}
+
+type EventEntry @collection(name: "EventEnties"){
+  event: Event!
+  user: User!
+  entryType: String
+  startTime: Time!
+  grade: String
+  userPb: Int!
+  handicap: Int
+  result: Result
+}
+
+type Result @embedded{
+  event: Event!
+  user: User!
+  time: Int!
+  result: Int!
+  handicapResult: Int
+}
+
+type Money @embedded {
+  amount: Int!
+  currency: String!
+  baseCurrency: String
+  exchangeRate: Int
+}
+
+type Sponsor @collection(name: "sponsors") {
+  name: String!
+  description: String
+  image: String
+  imageAlt: String
+  url: String
+}

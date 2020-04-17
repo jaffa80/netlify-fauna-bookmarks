@@ -1,0 +1,97 @@
+# user
+type User @collection(name: "users") {
+  authId: String! @unique(index: "unique_username")
+  accessToken: String
+  refresh: String
+}
+
+# route
+type Route @collection(name: "routes") {
+  name: String!
+  description: String
+  stravaUrl: String! @unique(index: "unique_Route")
+  polyline: String
+  multiSegment:Boolean!
+  maxTimeBetweenSegments: Int
+  routeStatus:String!
+  routeAdmin: User!
+  routeApprover: User
+  segments: [Segment]
+  eventKOM: Int
+}
+
+#segment (one or more segments)
+type Segment @embedded {
+  sequence: Int!  @unique(index: "unique_Segment")
+  segmentName: String
+  segmentId: String! @unique(index: "unique_Segment")
+  polyline: String
+  routeURL: String!
+}
+
+
+
+type RouteEvent @collection(name: "routeEvents") {
+  route: Route! @unique (index: "unique_RouteEvent")
+  eventType: EventType
+  startDate: Date! @unique (index: "unique_RouteEvent")
+  endDate: Date!
+  timeWindows: [TimeWindow!]
+  entryWindow: Int!
+  entryGap: Int!
+  minGap: Int
+  sponsor: Sponsor
+  handicap: Boolean!
+  paid: Boolean
+  amount: Money
+  eventKOM: Int
+}
+type EventType @embedded {
+  eventType: String!
+  description: String!
+  graded: Boolean!
+}
+
+type TimeWindow @embedded {
+  startTime: Time!
+  endTime: Time!
+}
+
+type EventEntry @collection(name: "eventEnties"){
+  event: RouteEvent! @unique (index: "unique_EventEntry")
+  user: User! 
+  """Entry Type is grade"""
+  entryType: String
+  startTime: Time! @unique (index: "unique_EventEntry")
+  grade: String
+  handicap: Handicap
+  result: Result
+}
+
+type Result @embedded{
+  event: RouteEvent!
+  user: User!
+  time: Int!
+  result: Int!
+  handicapResult: Int
+}
+
+type Money @embedded {
+  currency: String!
+  baseCurrency: String!
+  exchangeRate: Int!
+}
+
+type Handicap @embedded {
+  """stores the handicap for each user per event"""
+  route:Route!
+  handicap: Int!
+}
+
+type Sponsor @collection(name: "sponsors") {
+  name: String!
+  description: String
+  image: String
+  imageAlt: String
+  url: String
+}
