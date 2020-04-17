@@ -1,0 +1,17 @@
+mutation NewEventEntry {
+  createEventEntry(data:{
+    event: {
+      connect:"1587117257820000"
+    }
+    startTime:"2020-04-19T13:30:00.0000Z"
+    user:{
+    	connect:"263025385039462922"
+    }
+  })
+  {
+    _id
+    user{
+      authId
+    }
+  }
+}

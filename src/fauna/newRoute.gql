@@ -1,0 +1,40 @@
+# Write your query or mutation here
+mutation NewRoute {
+   createRoute(data: {
+    name: "ISOTT Sunbury"
+    description: "A ery quiet rode between Sunbury and Diggers Rest, which is a popular (but not too popular) with the locals.This route has been designed to ensure rides are never crossing traffic, with left turns only."
+    stravaUrl: "https://www.strava.com/routes/24791844"
+    multiSegment: false
+    routeStatus:"Active"
+    routeAdmin: {
+    	connect:"262958379097391626"
+    }
+    routeApprover: {
+    	connect:"262958379097391626"
+    }
+    segments:[{
+          sequence: 1
+          segmentName: "ISOTT"
+          segmentId: "23269428"
+          routeURL: "https://www.strava.com/segments/23269428"
+    },
+      {
+          sequence: 2
+          segmentName: "ISOTT"
+          segmentId: "23269428"
+          routeURL: "https://www.strava.com/segments/23269428"
+    }
+    ]
+    eventKOM: 805
+   }) 
+  {
+    _id
+    name
+    segments{
+      segmentId
+    }
+    routeAdmin {
+      authId
+    }
+   }
+}

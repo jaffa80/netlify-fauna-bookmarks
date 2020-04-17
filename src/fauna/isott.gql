@@ -57,10 +57,9 @@ type TimeWindow @embedded {
   endTime: Time!
 }
 
-type EventEntry @collection(name: "eventEnties"){
+type EventEntry @collection(name: "eventEntries"){
   event: RouteEvent! @unique (index: "unique_EventEntry")
   user: User! 
-  """Entry Type is grade"""
   entryType: String
   startTime: Time! @unique (index: "unique_EventEntry")
   grade: String
@@ -94,4 +93,9 @@ type Sponsor @collection(name: "sponsors") {
   image: String
   imageAlt: String
   url: String
+}
+
+type Query {
+  allUpcomingEvents: [RouteEvent]
+  allEventEntries:(event)
 }

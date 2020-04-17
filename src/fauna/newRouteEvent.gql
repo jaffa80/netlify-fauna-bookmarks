@@ -1,0 +1,26 @@
+mutation newRouteEvent{
+  createRouteEvent (data:
+    {
+		route: {
+      connect: "263020485101486593"
+        }
+    eventType: {
+    	  eventType: "Bike ITT"
+        description: "An Individual TimeTrial for all bikes"
+        graded: false
+    }
+    startDate: "2020-04-16"
+    endDate: "2020-04-19"
+    timeWindows: [
+      {
+      startTime: "2020-04-08T06:00:00.0000Z"
+      endTime:	"2020-04-08T20:00:00.0000Z"
+    }
+    ]
+    entryWindow: 15
+    entryGap: 15
+    handicap: false
+    paid: false
+    }
+  )
+}
