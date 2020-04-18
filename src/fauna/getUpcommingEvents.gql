@@ -1,0 +1,16 @@
+CreateIndex({
+  name: "routeEvent_by_endDate",
+  source: Collection("routeEvents"),
+  values: [
+    {field: ["data", "endDate"]},
+    {field: ["ref"]}
+  ],
+})
+
+Map(
+  Paginate(
+    Match(Index("routeEvent_by_endDate")),
+    { after: ToDate(Now()) }
+  ),
+  Lambda("x", Get(Select(1, Var("x"))))
+)
